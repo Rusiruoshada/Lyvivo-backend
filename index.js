@@ -2,9 +2,10 @@ import express from 'express';
 // Importing the mongoose package
 import mongoose from 'mongoose';
 
+
 const app = express();
 const port = 5000;
-const url = '';
+const url = 'mongodb+srv://sample1:LyvivoDB@lyvivo.5glflir.mongodb.net/';
 
 const connectDB = async() => {
     try {
@@ -13,15 +14,20 @@ const connectDB = async() => {
         });
         console.log(`MongoDB Connected: ${connect.connection.host}`)
     }catch (error) {
-        console.error(error.massage);
+        console.error('Error with connecting MongoDB' + error.massage);
 
     }
 }
+// calling MongoDB
+connectDB();
 
+app.use(express.json());
 
+app.use(express.static('../Frontend/public"'))
 
 app.get('/', (req,res)=> {
     res.send('backend working')
+    
 })
 
 app.listen(port, () => {
