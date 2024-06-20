@@ -5,11 +5,11 @@ import mongoose from 'mongoose';
 
 const app = express();
 const port = 5000;
-const url = 'mongodb+srv://sample1:LyvivoDB@lyvivo.5glflir.mongodb.net/';
+const URL = 'mongodb+srv://sample1:LyvivoDB@lyvivo.5glflir.mongodb.net/';
 
 const connectDB = async() => {
     try {
-        const connect = await mongoose.connect( url, {
+        const connect = await mongoose.connect( URL, {
             useNewUrlParser: true,
         });
         console.log(`MongoDB Connected: ${connect.connection.host}`)
