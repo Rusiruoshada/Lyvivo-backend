@@ -4,6 +4,7 @@ interface ProductsSeedDataTypes {
     regularPrice: number,
     discountPrice: number,
     description: string,
+    image?: string,
     weight?: string 
 }
 
