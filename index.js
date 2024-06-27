@@ -2,19 +2,16 @@ import express from 'express';
 // Importing the mongoose package
 import mongoose from 'mongoose';
 
-
 const app = express();
 const port = 5000;
 const URL = 'mongodb+srv://sample1:LyvivoDB@lyvivo.5glflir.mongodb.net/';
 
 const connectDB = async() => {
     try {
-        const connect = await mongoose.connect( URL, {
-            useNewUrlParser: true,
-        });
+        const connect = await mongoose.connect( URL);
         console.log(`MongoDB Connected: ${connect.connection.host}`)
     }catch (error) {
-        console.error('Error with connecting MongoDB' + error.massage);
+        console.error('Error with connecting MongoDB' + error );
 
     }
 }
@@ -22,7 +19,7 @@ const connectDB = async() => {
 connectDB();
 
 app.use(express.json());
-
+app.use(express.urlencoded({extended: true}))
 app.use(express.static('../Frontend/public"'))
 
 app.get('/', (req,res)=> {
