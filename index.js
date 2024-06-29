@@ -1,6 +1,7 @@
 import express from 'express';
 // Importing the mongoose package
 import mongoose from 'mongoose';
+import Product from './src/models/product.js'
 
 const app = express();
 const port = 5000;
@@ -24,7 +25,16 @@ app.use(express.static('../Frontend/public"'))
 
 app.get('/', (req,res)=> {
     res.send('backend working')
-    
+})
+
+app.get('/collection/all',  async(req,res) => {
+    try{
+        const allProducts = await Product.find();
+        res.json(allProducts)
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({error: 'Internal Sever Error'})
+    }
 })
 
 app.listen(port, () => {
