@@ -27,7 +27,7 @@ app.get('/', (req,res)=> {
     res.send('backend working')
 })
 
-app.get('/collection/all',  async(req,res) => {
+app.get('/api/allProduct',  async(req,res) => {
     try{
         const allProducts = await Product.find();
         res.json(allProducts)
