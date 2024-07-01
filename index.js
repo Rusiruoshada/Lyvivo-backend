@@ -2,6 +2,7 @@ import express from 'express';
 // Importing the mongoose package
 import mongoose from 'mongoose';
 import Product from './src/models/product.js'
+import cors from 'cors'
 
 const app = express();
 const port = 5000;
@@ -21,11 +22,12 @@ connectDB();
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}))
-app.use(express.static('../Frontend/public"'))
+app.use(cors())
 
 app.get('/', (req,res)=> {
     res.send('backend working')
 })
+
 
 app.get('/api/allProduct',  async(req,res) => {
     try{
