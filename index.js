@@ -33,6 +33,7 @@ app.get('/', (req,res)=> {
 
 app.get('/api/homepageProduct', async(req, res) => {
     const category = {show: 'Grocery', show1: 'Best Savings', show2: 'Electronics'}
+
     try{
         const grocery = await Product.find({category:category.show});
         if (!grocery) {
@@ -52,7 +53,7 @@ app.get('/api/homepageProduct', async(req, res) => {
 
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        res.status(500).json({ error: 'Internal Server Error!' });
     }
 })
 
