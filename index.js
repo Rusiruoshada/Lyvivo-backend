@@ -5,6 +5,7 @@ import Product from './src/models/product.js'
 import cors from 'cors'
 
 const app = express();
+const router = express.Router();
 const port = 5000;
 const URL = 'mongodb+srv://sample1:LyvivoDB@lyvivo.5glflir.mongodb.net/';
 
@@ -31,7 +32,7 @@ app.get('/', (req,res)=> {
     res.send('backend working')
 })
 
-app.get('/api/homepageProduct', async(req, res) => {
+router.get('/api/homepageProduct', async(req, res) => {
     const category = {show: 'Grocery', show1: 'Best Savings', show2: 'Electronics'}
 
     try{
@@ -57,7 +58,22 @@ app.get('/api/homepageProduct', async(req, res) => {
     }
 })
 
-app.get('/api/allProduct',  async(req,res) => {
+router.get('/api/products/:id', async(req,res)=> {
+    const productId = req.params.id;
+    
+    try{
+        const productItem = await Product.findById(productId);
+
+        if(!productItem){
+            return res.status(404).json({ message: 'Item not found' })
+        };
+        res.status(200).json(productItem);
+    }catch (error) {
+        res.status(500).json({message: 'Server Error' })
+    }
+})
+
+router.get('/api/allProduct',  async(req,res) => {
     try{
         const allProducts = await Product.find();
         res.json(allProducts)
@@ -66,6 +82,8 @@ app.get('/api/allProduct',  async(req,res) => {
         res.status(500).json({error: 'Internal Sever Error'})
     }
 })
+
+app.use('/', router)
 
 app.listen(port, () => {
     console.log(`🚀 Server running on port ${port}`)
