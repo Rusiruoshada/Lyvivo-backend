@@ -15,3 +15,45 @@ Technology Stack
     Express: Web framework for building the REST API.
     ts-node: TypeScript execution environment for Node.js.
     Jest: Testing framework (optional, if you include tests).
+
+Installation
+Prerequisites
+
+    Node.js: Ensure Node.js is installed. You can download it from nodejs.org.
+
+Steps
+
+    Clone the Repository
+
+    bash
+
+git clone https://github.com/yourusername/lyvivo-backend.git
+cd lyvivo-backend
+
+Install Dependencies
+
+bash
+
+npm install
+
+Compile TypeScript
+
+To compile TypeScript to JavaScript, run:
+
+bash
+
+npm run build
+
+Start the Server
+
+After building, start the server with:
+
+bash
+
+npm start
+
+For development purposes, you can use ts-node to run directly without building:
+
+bash
+
+    npm run dev
