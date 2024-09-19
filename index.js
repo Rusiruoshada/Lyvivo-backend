@@ -1,12 +1,15 @@
 import express from 'express';
 // Importing the mongoose package
 import mongoose from 'mongoose';
-import Product from './src/models/product.js'
-import cors from 'cors'
+import Product from './src/models/product.js';
+import cors from 'cors';
+import nodemailer from 'nodemailer'
+import bodyParser from 'body-parser'
+
 
 const app = express();
 const router = express.Router();
-const port = 5000;
+const port = process.env.PORT || 5000;
 const URL = 'mongodb+srv://sample1:LyvivoDB@lyvivo.5glflir.mongodb.net/';
 
 const connectDB = async() => {
@@ -27,6 +30,7 @@ app.use(cors({
     origin: 'http://localhost:3000',
     Credential: true,
 }))
+app.use(bodyParser.json());
 
 app.get('/', (req,res)=> {
     res.send('backend working')
@@ -80,6 +84,44 @@ router.get('/api/allProduct',  async(req,res) => {
     } catch (error) {
         console.log(error)
         res.status(500).json({error: 'Internal Sever Error'})
+    }
+})
+
+router.post('/api/send-email', async (req, res) => {
+    console.log('in api/send-email bro!')
+    const { category, 'First Name': firstName, 'Last Name': lastName, Address, 'Contact Number': contactNumber, email, Message } = req.body;
+
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        port: 5000,
+        host: '',
+        auth: {
+            user: 'rusirusamaraweera749@gmail.com',
+            pass: 'R1@T2roms%?'
+        }
+    });
+
+    const mailOptions = {
+        from:email,
+        to:'rusirusamaraweera749@gmail.com' ,
+        subject: `New ${category} from ${firstName} ${lastName}`,
+        text: `
+            Category: ${category}
+            First Name: ${firstName}
+            Last Name: ${lastName}
+            Address: ${Address}
+            Contact Number: ${contactNumber}
+            Email: ${email}
+            Message: ${Message}
+        `,
+    };
+
+    try {
+        await transporter.sendMail(mailOptions);
+        res.status(200).json({ message: 'Email sent successfully!' });
+    } catch (error) {
+        console.error('Error sending email:', error);
+        res.status(500).json({ message: 'Error sending email', error });
     }
 })
 
