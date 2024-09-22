@@ -5,8 +5,9 @@ import Product from './src/models/product.js';
 import cors from 'cors';
 import nodemailer from 'nodemailer'
 import bodyParser from 'body-parser'
+import dotenv from 'dotenv';
 
-
+dotenv.config()
 const app = express();
 const router = express.Router();
 const port = process.env.PORT || 5000;
@@ -88,7 +89,6 @@ router.get('/api/allProduct',  async(req,res) => {
 })
 
 router.post('/api/send-email', async (req, res) => {
-    console.log('in api/send-email bro!')
     const { category, 'First Name': firstName, 'Last Name': lastName, Address, 'Contact Number': contactNumber, email, Message } = req.body;
 
     const transporter = nodemailer.createTransport({
@@ -96,14 +96,14 @@ router.post('/api/send-email', async (req, res) => {
         port: 5000,
         host: '',
         auth: {
-            user: 'rusirusamaraweera749@gmail.com',
-            pass: 'R1@T2roms%?'
+            user: process.env.GMAIL_USER,
+            pass: process.env.GMAIL_PASS,
         }
     });
 
     const mailOptions = {
         from:email,
-        to:'rusirusamaraweera749@gmail.com' ,
+        to: process.env.GMAIL_USER ,
         subject: `New ${category} from ${firstName} ${lastName}`,
         text: `
             Category: ${category}
