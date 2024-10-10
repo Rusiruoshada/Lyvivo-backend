@@ -88,13 +88,3 @@ Contributions are welcome! Please fork the repository and submit a pull request 
     Commit Your Changes
     Push to the Branch
     Create a Pull Request
-
-License
-
-This project is licensed under the MIT License. See the LICENSE file for details.
-Contact
-
-For any questions or support, please contact:
-
-    Email: rusirusamaraweera749@gmail.com
-    GitHub: Rusiruoshada
